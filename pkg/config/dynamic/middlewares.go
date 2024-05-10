@@ -46,7 +46,6 @@ type Middleware struct {
 }
 
 // +k8s:deepcopy-gen=true
- 
 
 type ReqLimitter struct {
 	RedisAddr       string                   `json:"redisAddr" yaml:"redisAddr"`
