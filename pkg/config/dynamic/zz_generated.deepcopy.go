@@ -787,6 +787,11 @@ func (in *Middleware) DeepCopyInto(out *Middleware) {
 		*out = new(RateLimit)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.ReqLimitter != nil {
+		in, out := &in.ReqLimitter, &out.ReqLimitter
+		*out = new(ReqLimitter)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.RedirectRegex != nil {
 		in, out := &in.RedirectRegex, &out.RedirectRegex
 		*out = new(RedirectRegex)

@@ -24,6 +24,7 @@ type Middleware struct {
 	Headers           *Headers           `json:"headers,omitempty" toml:"headers,omitempty" yaml:"headers,omitempty" export:"true"`
 	Errors            *ErrorPage         `json:"errors,omitempty" toml:"errors,omitempty" yaml:"errors,omitempty" export:"true"`
 	RateLimit         *RateLimit         `json:"rateLimit,omitempty" toml:"rateLimit,omitempty" yaml:"rateLimit,omitempty" export:"true"`
+	ReqLimitter       *ReqLimitter       `json:"reqLimitter,omitempty" toml:"reqLimitter,omitempty" yaml:"reqLimitter,omitempty" export:"true"`
 	RedirectRegex     *RedirectRegex     `json:"redirectRegex,omitempty" toml:"redirectRegex,omitempty" yaml:"redirectRegex,omitempty" export:"true"`
 	RedirectScheme    *RedirectScheme    `json:"redirectScheme,omitempty" toml:"redirectScheme,omitempty" yaml:"redirectScheme,omitempty" export:"true"`
 	BasicAuth         *BasicAuth         `json:"basicAuth,omitempty" toml:"basicAuth,omitempty" yaml:"basicAuth,omitempty" export:"true"`
@@ -42,6 +43,17 @@ type Middleware struct {
 
 	// Gateway API HTTPRoute filters middlewares.
 	RequestHeaderModifier *RequestHeaderModifier `json:"requestHeaderModifier,omitempty" toml:"-" yaml:"-" label:"-" file:"-" kv:"-" export:"true"`
+}
+
+// +k8s:deepcopy-gen=true
+ 
+
+type ReqLimitter struct {
+	RedisAddr       string                   `json:"redisAddr" yaml:"redisAddr"`
+	RedisPassword   string                   `json:"redisPassword,omitempty" yaml:"redisPassword,omitempty"`
+	Rate            string                   `json:"rate" yaml:"rate"`
+	Burst           int                      `json:"burst,omitempty" yaml:"burst,omitempty"`
+	SourceCriterion *SourceCriterion         `json:"sourceCriterion,omitempty" yaml:"sourceCriterion,omitempty"`
 }
 
 // +k8s:deepcopy-gen=true
